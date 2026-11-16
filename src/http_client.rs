@@ -1,8 +1,6 @@
 use reqwest::{
     Response,
-    header::{
-        ACCEPT, ACCEPT_ENCODING, ACCEPT_LANGUAGE, HeaderMap, HeaderName, HeaderValue, REFERER,
-    },
+    header::{ACCEPT, ACCEPT_LANGUAGE, HeaderMap, HeaderValue},
 };
 
 pub struct HttpClient {
@@ -23,18 +21,14 @@ impl HttpClient {
             ACCEPT_LANGUAGE,
             HeaderValue::from_static("pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"),
         );
-        headers.insert(
-            ACCEPT_ENCODING,
-            HeaderValue::from_static("gzip, deflate, br, zstd"),
-        );
-        headers.insert(
-            REFERER,
-            HeaderValue::from_static("https://www.pichau.com.br"),
-        );
-        headers.insert(
-            HeaderName::from_static("alt-used"),
-            HeaderValue::from_static("www.pichau.com.br"),
-        );
+        // headers.insert(
+        //     REFERER,
+        //     HeaderValue::from_static("https://www.pichau.com.br"),
+        // );
+        // headers.insert(
+        //     HeaderName::from_static("alt-used"),
+        //     HeaderValue::from_static("www.pichau.com.br"),
+        // );
 
         let client = reqwest::Client::builder()
             .user_agent("Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/153.0")

@@ -1,14 +1,13 @@
-use scraper::{Html, Selector, error::SelectorErrorKind};
+use scraper::{ElementRef, Html, Selector, error::SelectorErrorKind};
 
-pub fn parse_html<'selector>(html: &str, selector: &'selector str) -> Result<usize, SelectorErrorKind<'selector>> {
-    let document = Html::parse_document(html);
+// Parseia um html e retorna um vetor contendo os elementos atingidos pelo seletor css passado como parâmetro
 
-    match Selector::parse(selector) {
-        Ok(element) => {
-            return Ok(document.select(&element).count());
-        },
-        Err(error) => {
-            return Err(error);
-        }
-    };
+pub fn parse_html<'document, 'selector>(
+    document: &'document Html,
+    selector: &'selector str,
+) -> Result<Vec<ElementRef<'document>>, SelectorErrorKind<'selector>> {
+    let parsed_selector = Selector::parse(selector)?;
+    let elements = document.select(&parsed_selector).collect();
+
+    Ok(elements)
 }
